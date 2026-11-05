@@ -82,7 +82,7 @@ function resizeConfetti() {
   confettiCanvas.style.width = `${innerWidth}px`;
   confettiCanvas.style.height = `${innerHeight}px`;
   confettiContext.setTransform(scale, 0, 0, scale, 0, 0);
-  const amount = innerWidth < 600 ? 16 : 28;
+  const amount = innerWidth < 600 ? 12 : 28;
   confettiPieces = Array.from({ length: amount }, () => makeConfettiPiece(true));
 }
 
@@ -234,7 +234,8 @@ if (finePointer && !reduceMotion) {
 function launchConfetti(count = 80) {
   if (reduceMotion) return;
   const colors = ['#ad5968', '#d7b16c', '#72816d', '#e8beb9', '#fffaf2'];
-  for (let i = 0; i < count; i++) {
+  const pieceCount = innerWidth < 600 ? Math.min(count, 48) : count;
+  for (let i = 0; i < pieceCount; i++) {
     const piece = document.createElement('i');
     piece.style.cssText = `position:fixed;z-index:15;left:${Math.random() * 100}vw;top:-12px;width:${5 + Math.random() * 6}px;height:${8 + Math.random() * 8}px;background:${colors[i % colors.length]};pointer-events:none;border-radius:2px;transform:rotate(${Math.random() * 360}deg);`;
     document.body.append(piece);
