@@ -175,8 +175,10 @@ function showPhoto(index, animate = true) {
   enlargedImage.src = image.src;
   enlargedImage.alt = image.alt;
   const caption = lightbox.querySelector('.postcard-caption');
-  caption.textContent = card.dataset.caption || 'Пусть впереди будет много счастливых дней вместе.';
-  caption.hidden = false;
+  const cardCaption = card.querySelector('.note-copy')?.innerText.trim() || card.dataset.caption?.trim() || '';
+  caption.textContent = cardCaption;
+  caption.hidden = !cardCaption;
+  postcard.classList.toggle('has-caption', Boolean(cardCaption));
   if (animate) {
     postcard.classList.remove('photo-pop');
     void postcard.offsetWidth;
